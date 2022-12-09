@@ -23,17 +23,18 @@ public class MainPage implements ActionListener {
 	static final int WIDTH = 1024;
 	static final int HEIGHT = 850;
 
-	JPanel blackjack = new JPanel();
-	JPanel bridge = new JPanel();
-	JPanel muyu = new JPanel();
+//	JPanel blackjack = new JPanel();
+//	JPanel bridge = new JPanel();
+//	JPanel muyu = new JPanel();
 	JPanel main = new JPanel();
+//	JPanel leaderboard = new JPanel();
 	JFrame frame = new JFrame();
-	
+
 	public MainPage() {
 		
 		frame.setSize(WIDTH, HEIGHT);
 		main.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-		main.setLayout(new GridLayout(1, 3));
+		main.setLayout(new GridLayout(1, 4));
 		frame.add(main, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Main Page");
@@ -58,7 +59,7 @@ public class MainPage implements ActionListener {
 	
 	public static void main(String[] args) {
 		new MainPage();
-		
+//		new User();
 //		Bridge bridge = new Bridge();
 //		mainPage.add(bridge);
 
@@ -69,7 +70,7 @@ public class MainPage implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		String event = evt.getActionCommand();
-		frame.dispose();
+//		frame.dispose();
 		if(event.equals("BlackJack")){
 			System.out.println("playing blackjack");
 //			blackjackGame.main(null);
