@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Muyu.Muyu;
 import bridge.Bridge;
 
 public class MainPage implements ActionListener {
@@ -25,7 +26,7 @@ public class MainPage implements ActionListener {
 
 //	JPanel blackjack = new JPanel();
 //	JPanel bridge = new JPanel();
-//	JPanel muyu = new JPanel();
+
 	JPanel main = new JPanel();
 //	JPanel leaderboard = new JPanel();
 	JFrame frame = new JFrame();
@@ -88,10 +89,10 @@ public class MainPage implements ActionListener {
 		}
 		else if(event.equals("Muyu")){
 			System.out.println("playing Muyu");
-//			muyuGame.main(null);
-//			frame.remove(main);
-//          frame.add(muyuGame);
-//			setVisible(true);
+			Muyu muyuGame = new Muyu();
+			frame.remove(main);
+			frame.add(muyuGame);
+			frame.setVisible(true);
 		}
 		
 	}

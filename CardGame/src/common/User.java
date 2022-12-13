@@ -1,13 +1,13 @@
 package common;
 
 public class User {
-	String username;
-	int cash; // unsaved, temp points 
-	int deposit; //saved points after muyu game;
+	public String username;
+	public int cash; // unsaved, temp points 
+	public int deposit; //saved points after muyu game;
 	
-	User(String name){
+	public User(String name){
 		this.username = name;
-		this.cash = 0;
+		this.cash = 100;
 		this.deposit = 0;
 	}
 }
