@@ -9,12 +9,16 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 public abstract class CardField extends JPanel {
+	Desk desk;
+	String position;
 	List<Integer> cardsIDs;
 	List<Card> cards;
 	boolean displayable;
 
-	public CardField() {
+	public CardField(Desk desk, String position) {
 		super();
+		this.desk = desk;
+		this.position = position;
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		this.setVisible(true);
 		
@@ -22,8 +26,8 @@ public abstract class CardField extends JPanel {
 		displayable = false;
 	}
 	
-	public CardField(int width, int height) {
-		this();
+	public CardField(Desk desk, String position, int width, int height) {
+		this(desk, position);
 		this.setSize(width, height);
 	}
 	
@@ -37,6 +41,18 @@ public abstract class CardField extends JPanel {
 		setCardsList();
 //		this.repaint();
 		this.displayCards();
+	}
+	
+	public Desk getDesk() {
+		return this.desk;
+	}
+	
+	public String getPosition() {
+		return this.position;
+	}
+	
+	public List<Card> getCardsList(){
+		return cards;
 	}
 	
 	public abstract void setCardsList();

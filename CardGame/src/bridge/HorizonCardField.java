@@ -8,8 +8,8 @@ public class HorizonCardField extends CardField {
 	static final int WIDTH = 450;
 	static final int HEIGHT = 150;
 	
-	public HorizonCardField() {
-		super(WIDTH, HEIGHT);
+	public HorizonCardField(Desk desk, String position) {
+		super(desk,position,  WIDTH, HEIGHT);
 	}
 	
 	public void setCardsList() {
@@ -18,11 +18,11 @@ public class HorizonCardField extends CardField {
 		// if the displayable is true, show the card to the player
 		if (this.displayable == true) {
 			for (int i : this.cardsIDs) {
-				this.cards.add(new Card(i, false));
+				this.cards.add(new Card(i, false, this));
 			}
 		}else {	// if the displayable is false, show the back of the card to the player
 			for (int i : this.cardsIDs) {
-				this.cards.add(new Card(-1, false));
+				this.cards.add(new Card(-1, false, this));
 			}
 		}
 	}
@@ -41,8 +41,9 @@ public class HorizonCardField extends CardField {
 			this.add(c, 0);
 			c.setLocation(x, y);
 			c.repaint();
-			this.repaint();
 			x += offset;
 		}
+		this.repaint();
+		
 	}
 }

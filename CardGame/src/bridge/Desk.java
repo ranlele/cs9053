@@ -3,6 +3,8 @@ package bridge;
 import java.util.*;
 import java.util.List;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
@@ -10,13 +12,13 @@ public class Desk extends JPanel{
 	final int WIDTH = 800;
 	final int HEIGHT = 800;
 	final int CARD_HEIGHT = 150;
-	final int TABLE_LENGTH = 450;
+	final int CENTER_LENGTH = 450;
 	
 	CardField east;
 	CardField west;
 	CardField north;
 	CardField south;
-	JPanel table;
+	Center center;
 	List<Integer> eastIDs = new ArrayList<>();
 	List<Integer> westIDs = new ArrayList<>();
 	List<Integer> northIDs = new ArrayList<>();
@@ -42,16 +44,23 @@ public class Desk extends JPanel{
 		this.setVisible(true);
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		
-		north = new HorizonCardField();
-		south = new HorizonCardField();
-		west = new VerticalCardField();
-		east = new VerticalCardField();
-		table = new JPanel();
-		table.setBorder(BorderFactory.createLineBorder(Color.black));
-		table.setSize(TABLE_LENGTH, TABLE_LENGTH);
+		north = new HorizonCardField(this, "north");
+		south = new HorizonCardField(this, "south");
+		west = new VerticalCardField(this, "west");
+		east = new VerticalCardField(this, "east");
+		center = new Center(CENTER_LENGTH, CENTER_LENGTH);
+		center.displayCards();
+		
+		north.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.out.println("cf");
+			}
+		});
+		
 //		Card ca = new Card(1, true);
 //		ca.setIsRotated(true);
-//		table.add(ca);
+//		center.add(ca);
 		
 		
 		// Set the layout of the desk
@@ -62,9 +71,9 @@ public class Desk extends JPanel{
 		
 		// Set the horizon group
 		GroupLayout.ParallelGroup hParalGroup = layout.createParallelGroup();
-		hParalGroup.addComponent(north,TABLE_LENGTH,TABLE_LENGTH,TABLE_LENGTH);
-		hParalGroup.addComponent(table,TABLE_LENGTH,TABLE_LENGTH,TABLE_LENGTH);
-		hParalGroup.addComponent(south,TABLE_LENGTH,TABLE_LENGTH,TABLE_LENGTH);
+		hParalGroup.addComponent(north,CENTER_LENGTH,CENTER_LENGTH,CENTER_LENGTH);
+		hParalGroup.addComponent(center,CENTER_LENGTH,CENTER_LENGTH,CENTER_LENGTH);
+		hParalGroup.addComponent(south,CENTER_LENGTH,CENTER_LENGTH,CENTER_LENGTH);
 		GroupLayout.SequentialGroup hSeqGroup = layout.createSequentialGroup();
 		hSeqGroup.addGap(20);
 		hSeqGroup.addComponent(west,CARD_HEIGHT,CARD_HEIGHT,CARD_HEIGHT);
@@ -74,15 +83,20 @@ public class Desk extends JPanel{
 		
 		// Set the vertical group
 		GroupLayout.ParallelGroup vParalGroup = layout.createParallelGroup();
-		vParalGroup.addComponent(west,TABLE_LENGTH,TABLE_LENGTH,TABLE_LENGTH);
-		vParalGroup.addComponent(table,TABLE_LENGTH,TABLE_LENGTH,TABLE_LENGTH);
-		vParalGroup.addComponent(east,TABLE_LENGTH,TABLE_LENGTH,TABLE_LENGTH);
+		vParalGroup.addComponent(west,CENTER_LENGTH,CENTER_LENGTH,CENTER_LENGTH);
+		vParalGroup.addComponent(center,CENTER_LENGTH,CENTER_LENGTH,CENTER_LENGTH);
+		vParalGroup.addComponent(east,CENTER_LENGTH,CENTER_LENGTH,CENTER_LENGTH);
 		GroupLayout.SequentialGroup vSeqGroup = layout.createSequentialGroup();
 		vSeqGroup.addGap(20);
 		vSeqGroup.addComponent(north,CARD_HEIGHT,CARD_HEIGHT,CARD_HEIGHT);
 		vSeqGroup.addGroup(vParalGroup);
 		vSeqGroup.addComponent(south,CARD_HEIGHT,CARD_HEIGHT,CARD_HEIGHT);
 		layout.setVerticalGroup(vSeqGroup);
+		
+	}
+	
+	public Center getCenter() {
+		return this.center;
 	}
 	
 	public CardField getCardField(String position) {
@@ -187,13 +201,15 @@ public class Desk extends JPanel{
 					+ "argument must be one of east/west/north/south.");
 		}
 		
-		// sort the cards in order
+		// sort the cards in order "♠", "♥", "♦", "♣" from K to A
 		idsList.sort((a, b) -> {
 			if (a / 13 != b / 13)
 				return a / 13 - b / 13;
 			else
 				return b % 13 - a % 13;
 		});
+		
+//		System.out.println(idsList.toString());
 		
 		cardField.setIDsList(idsList);
 //		cardField.repaint();

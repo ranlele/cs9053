@@ -68,27 +68,41 @@ public class Bridge extends JPanel {
 			// Display the cards of the banker's teammate
 			String banker = this.desk.getBanker();
 			CardField bankerField = null;
+			CardField partnerField = null;
 			switch (banker) {
 			case "east":
-				bankerField = desk.getCardField("west");
+				bankerField = desk.getCardField("east");
+				partnerField = desk.getCardField("west");
 				break;
 			case "west":
 				bankerField = desk.getCardField("east");
+				partnerField = desk.getCardField("west");
 				break;
 			case "north":
-				bankerField = desk.getCardField("south");
+				bankerField = desk.getCardField("north");
+				partnerField = desk.getCardField("south");
 				break;
 			case "south":
-				bankerField = desk.getCardField("north");
+				bankerField = desk.getCardField("south");
+				partnerField = desk.getCardField("north");
 				break;
 			default: 
 				System.err.println("Error in Bridge.StartAction.actionPerformed(), "
 					+ "argument must be one of east/west/north/south.");
 				return;
 			}
-			bankerField.setDisplayable(true);
-			bankerField.setCardsList();
+			
+			for (Card c : bankerField.getCardsList()) {
+				c.setPlayable(true);
+			}
 			bankerField.repaint();
+			partnerField.setDisplayable(true);
+			partnerField.setCardsList();
+			for (Card c : partnerField.getCardsList()) {
+//				System.out.print(c.id + " ");
+				c.setPlayable(true);
+			}
+			partnerField.repaint();
 		}
 	}
 	
