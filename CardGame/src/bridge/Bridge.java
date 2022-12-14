@@ -96,13 +96,16 @@ public class Bridge extends JPanel {
 				c.setPlayable(true);
 			}
 			bankerField.repaint();
+			
 			partnerField.setDisplayable(true);
 			partnerField.setCardsList();
 			for (Card c : partnerField.getCardsList()) {
 //				System.out.print(c.id + " ");
 				c.setPlayable(true);
 			}
-			partnerField.repaint();
+			partnerField.displayCards();
+			//partnerField.repaint();
+			
 		}
 	}
 	
