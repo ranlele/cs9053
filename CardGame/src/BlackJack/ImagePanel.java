@@ -1,4 +1,4 @@
-package src.BlackJack;
+package BlackJack;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
