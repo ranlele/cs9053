@@ -1,10 +1,49 @@
 package common;
 
 import java.sql.*;
+import java.util.ArrayList;
 public class DBconnection {
 
-	public static void main(String[] args) {
-		Connection conn = null;
+//	public static void main(String[] args) {
+//		Connection conn = null;
+//		try {
+//			conn = DriverManager.getConnection("jdbc:sqlite:cs9053.db");
+//			System.out.println("Opened database connection!");
+//			
+//			try {
+//				deleteTable(conn);
+//			}
+//			catch(Exception ignored) {
+//				// do nothing, table not exist
+//			}
+//			createTable(conn);
+//			System.out.println();
+//			System.out.println("Inserting Data");
+//			insertUser(conn, "Shuo", 500);
+//			insertUser(conn, "Jingyu", 800);
+//			insertUser(conn, "Jingyan", 300);
+//			System.out.println();
+//			System.out.println("Displaying database");
+//			displayDatabase(conn,"Users");
+//		} catch(SQLException e) {
+//			e.printStackTrace();
+//			System.out.println(e.getClass().getName() + ": " + e.getMessage());
+//		}
+//		finally {
+//			if (conn != null) {
+//				try {
+//					conn.close();
+//				}catch(SQLException e) {
+//					e.printStackTrace();
+//					System.out.println(e.getMessage());
+//				}
+//			}
+//		}
+//
+//	}
+	public Connection conn = null;
+	public DBconnection() {
+		conn = null;
 		try {
 			conn = DriverManager.getConnection("jdbc:sqlite:cs9053.db");
 			System.out.println("Opened database connection!");
@@ -17,7 +56,7 @@ public class DBconnection {
 			}
 			createTable(conn);
 			System.out.println();
-			System.out.println("Inserting Data");
+//			System.out.println("Inserting Data");
 			insertUser(conn, "Shuo", 500);
 			insertUser(conn, "Jingyu", 800);
 			insertUser(conn, "Jingyan", 300);
@@ -29,19 +68,17 @@ public class DBconnection {
 			System.out.println(e.getClass().getName() + ": " + e.getMessage());
 		}
 		finally {
-			if (conn != null) {
-				try {
-					conn.close();
-				}catch(SQLException e) {
-					e.printStackTrace();
-					System.out.println(e.getMessage());
-				}
-			}
+//			if (conn != null) {
+//				try {
+//					conn.close();
+//				}catch(SQLException e) {
+//					e.printStackTrace();
+//					System.out.println(e.getMessage());
+//				}
+//			}
 		}
-
 	}
-
-	private static void insertUser(Connection conn, String userName, int balance) throws SQLException {
+	public static void insertUser(Connection conn, String userName, int balance) throws SQLException {
 		String insertSQL = "INSERT INTO Users(userName, balance) VALUES(?,?)";
 		PreparedStatement pstmt = conn.prepareStatement(insertSQL);
 		pstmt.setString(1, userName);
@@ -60,7 +97,23 @@ public class DBconnection {
 			System.out.println(rs.getString("balance"));
 		}
 	}
-
+	
+	public ArrayList<User> getData(Connection conn, String tableName) throws SQLException {
+		ArrayList<User> arr = new ArrayList<User>();
+		String seleteSQL = "SELECT * from " + tableName;
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(seleteSQL);
+		System.out.println("----- " + tableName + "-----");
+		while(rs.next()) {
+			User u = new User(rs.getString("userName"));
+			u.cash = rs.getInt("balance");
+//			String s = "";
+//			s += (rs.getString("userName") + ": ");
+//			s+=(rs.getString("balance"));
+			arr.add(u);
+		}
+		return arr;
+	}
 	private static void createTable(Connection conn) throws SQLException {
 		String createTablesql = "" + "CREATE TABLE Users " +
 				"( " +

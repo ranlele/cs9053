@@ -30,7 +30,7 @@ public class MainPage implements ActionListener {
 	JPanel main = new JPanel();
 //	JPanel leaderboard = new JPanel();
 	JFrame frame = new JFrame();
-
+	User user = new User("Test");
 	public MainPage() {
 		
 		frame.setSize(WIDTH, HEIGHT);
@@ -89,7 +89,7 @@ public class MainPage implements ActionListener {
 		}
 		else if(event.equals("Muyu")){
 			System.out.println("playing Muyu");
-			Muyu muyuGame = new Muyu();
+			Muyu muyuGame = new Muyu(user);
 			frame.remove(main);
 			frame.add(muyuGame);
 			frame.setVisible(true);
