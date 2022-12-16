@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import BlackJack.BlackJackPanel;
 import Muyu.Muyu;
 import bridge.Bridge;
 
@@ -32,7 +33,7 @@ public class MainPage implements ActionListener {
 	JFrame frame = new JFrame();
 	User user = new User("Test");
 	public MainPage() {
-		
+
 		frame.setSize(WIDTH, HEIGHT);
 		main.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 		main.setLayout(new GridLayout(1, 4));
@@ -74,10 +75,10 @@ public class MainPage implements ActionListener {
 //		frame.dispose();
 		if(event.equals("BlackJack")){
 			System.out.println("playing blackjack");
-//			blackjackGame.main(null);
-//			frame.remove(main);
-//          frame.add(blackjackGame);
-//			setVisible(true);
+			BlackJackPanel blackjackGame = new BlackJackPanel(user);
+			frame.remove(main);
+			frame.add(blackjackGame);
+			frame.setVisible(true);
 		}
 		else if(event.equals("Bridge")){
 			System.out.println("playing Bridge");
