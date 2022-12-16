@@ -14,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import BlackJack.BlackJackPanel;
@@ -30,8 +31,8 @@ public class MainPage implements ActionListener {
 
 	JPanel main = new JPanel();
 //	JPanel leaderboard = new JPanel();
-	JFrame frame = new JFrame();
-	User user = new User("Test");
+	static JFrame frame = new JFrame();
+	static User user;
 	public MainPage() {
 
 		frame.setSize(WIDTH, HEIGHT);
@@ -60,6 +61,12 @@ public class MainPage implements ActionListener {
 	
 	
 	public static void main(String[] args) {
+		 // prompt the user to enter their name
+	    String name = JOptionPane.showInputDialog(frame, "What's your name?");
+
+	    // get the user's input. note that if they press Cancel, 'name' will be null
+	    System.out.printf("Welcome to Casino '%s'.\n", name);
+	    user = new User(name);
 		new MainPage();
 		
 //		new User();
@@ -70,6 +77,7 @@ public class MainPage implements ActionListener {
 	}
 
 
+    
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		String event = evt.getActionCommand();
