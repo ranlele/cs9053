@@ -60,9 +60,9 @@ public class DBconnection {
 			insertUser(conn, "Shuo", 500);
 			insertUser(conn, "Jingyu", 800);
 			insertUser(conn, "Jingyan", 300);
-			System.out.println();
-			System.out.println("Displaying database");
-			displayDatabase(conn,"Users");
+//			System.out.println();
+//			System.out.println("Displaying database");
+//			displayDatabase(conn,"Users");
 		} catch(SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getClass().getName() + ": " + e.getMessage());

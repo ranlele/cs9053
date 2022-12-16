@@ -61,6 +61,7 @@ public class MainPage implements ActionListener {
 	
 	public static void main(String[] args) {
 		new MainPage();
+		
 //		new User();
 //		Bridge bridge = new Bridge();
 //		mainPage.add(bridge);
