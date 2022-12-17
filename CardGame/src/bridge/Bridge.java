@@ -6,9 +6,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import common.User;
+
 public class Bridge extends JPanel {
 	final int WIDTH = 1024;
 	final int HEIGHT = 850;
+	User user;
 	Desk desk;
 	Board board;
 
@@ -20,11 +23,21 @@ public class Bridge extends JPanel {
 		this.setVisible(true);
 		this.setSize(WIDTH, HEIGHT);
 		
-		desk = new Desk();
+		desk = new Desk(this);
 		this.add(desk);
 		board = new Board();
 		this.add(board);
 		board.getStart().addActionListener(new StartAction(desk, board));
+	}
+	
+	public Bridge(User user) {
+		this();
+		this.user = user;
+		this.board.setUser(user);
+	}
+	
+	public User getUser() {
+		return this.user;
 	}
 	
 	public Desk getDesk() {
@@ -45,6 +58,16 @@ public class Bridge extends JPanel {
 		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			// cannot start a game before finish the one is playing
+			if(this.desk.isPlaying == true) {
+				JOptionPane.showMessageDialog(desk, "Please finish this game before starting a new one.", 
+						null, JOptionPane.PLAIN_MESSAGE);
+				return;
+			}
+			
+//			board.getUser().cash -= 25;
+//			board.setScore();
+			
 			this.desk.isPlaying = true;
 			// shuffle and deal cards
 			this.desk.shuffleCards();
@@ -64,6 +87,7 @@ public class Bridge extends JPanel {
 						JOptionPane.PLAIN_MESSAGE, null, suitOptions, suitOptions[0]);
 			}
 			this.board.setContract(new String(order + " " + suit));
+			this.desk.trumpSuit = suit;
 			
 			// Display the cards of the banker's teammate
 			String banker = this.desk.getBanker();
@@ -106,7 +130,20 @@ public class Bridge extends JPanel {
 			partnerField.displayCards();
 			//partnerField.repaint();
 			
+			// Remind the banker to play the paetner's cards
+			JOptionPane.showMessageDialog(desk, "You are the banker and need to play your partner's cards.", 
+					"Reminder" , JOptionPane.PLAIN_MESSAGE);
+			
+			//start playing cards
+			try {
+				desk.startPlaying();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
+		
+		
 	}
 	
 	

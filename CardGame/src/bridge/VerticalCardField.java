@@ -3,6 +3,7 @@ package bridge;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.ListIterator;
 
 public class VerticalCardField extends CardField {
 	static final int WIDTH = 150;
@@ -34,8 +35,12 @@ public class VerticalCardField extends CardField {
 		int offset = cards.get(0).getImageWidth() / 3;
 		int x = (WIDTH - cards.get(0).getImageHeight()) / 2;
 		int y = (HEIGHT - (offset * (cards.size() - 1) + cards.get(0).getImageWidth())) / 2;
-		for (Card c : cards) {
+		
+		ListIterator<Card> iterator = cards.listIterator();
+		while (iterator.hasNext()){
+//		for (Card c : cards) {
 //			System.out.println(c.id);
+			Card c = (Card)iterator.next();
 			c.setIsRotated(true);
 			this.add(c, 0);
 			c.setLocation(x, y);

@@ -12,7 +12,7 @@ public class Center extends JPanel {
 	
 	static final int MARGIN = 30;
 	
-	public Card[] cardsSlot;
+	protected Card[] cardsSlot;
 
 	public Center() {
 		super();
@@ -59,8 +59,8 @@ public class Center extends JPanel {
 				}
 				c.setLocation(x, y);
 				c.repaint();
-				this.repaint();
 			}
+			this.repaint();
 		}
 		
 	}
