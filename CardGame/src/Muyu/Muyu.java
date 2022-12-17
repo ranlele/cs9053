@@ -1,6 +1,7 @@
 package Muyu;
 import static javax.swing.JOptionPane.showMessageDialog;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -45,8 +46,9 @@ public class Muyu extends JFrame implements ActionListener {
 	public Muyu(User user, DBconnection db) {
 		this.db = db;
 		this.user = user;
-		muyuPanel.setBorder(BorderFactory.createEmptyBorder(30, 10, 30, 10));//top left bottom right
-		
+		muyuPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));//top left bottom right
+
+		muyuPanel.setLayout(new GridLayout(1,3));
         
 		// muyu sound
 		String soundName = "./CardGame/src/Muyu/muyu.wav";    
@@ -96,7 +98,7 @@ public class Muyu extends JFrame implements ActionListener {
 		muyuPanel.add(leaderboard);
 		muyuPanel.add(muyu_bt);
 		muyu_bt.addActionListener(this);
-		setLayout(new GridLayout(3,1));
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().add(muyuPanel);
         setSize(1024, 850);

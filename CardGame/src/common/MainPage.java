@@ -37,6 +37,7 @@ public class MainPage implements ActionListener {
 //	JPanel leaderboard = new JPanel();
 	static JFrame frame = new JFrame();
 	static User user;
+	
 	public MainPage() {
 		db  = new DBconnection();
 		frame.setSize(WIDTH, HEIGHT);
