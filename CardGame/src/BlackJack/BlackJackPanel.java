@@ -22,7 +22,7 @@ import common.User;
 
 
 
-public class BlackJackPanel extends JPanel {
+public class BlackJackPanel extends JFrame {
 	static final int WIDTH = 1024;
 	static final int HEIGHT = 850;
 	
@@ -50,7 +50,7 @@ public class BlackJackPanel extends JPanel {
 		BlackJackPanel.user = user;
 		gamblingMoney = user.cash;	
 		this.setLayout(new FlowLayout());
-//		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		for (int i = 0; i < 52; i++) {
 			this.pokers[i] = new ImagePanel("./CardGame/img/"+(i+1)+".png", i);
 		}

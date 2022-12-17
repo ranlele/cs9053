@@ -109,16 +109,16 @@ public class MainPage implements ActionListener {
 		if(event.equals("BlackJack")){
 			System.out.println("playing blackjack");
 			BlackJackPanel blackjackGame = new BlackJackPanel(user);
-			frame.remove(main);
-			frame.add(blackjackGame);
-			frame.setVisible(true);
+//			frame.remove(main);
+//			frame.add(blackjackGame);
+//			frame.setVisible(true);
 		}
 		else if(event.equals("Bridge")){
 			System.out.println("playing Bridge");
 			Bridge bridgeGame = new Bridge();
-			frame.remove(main);
-            frame.add(bridgeGame);
-			frame.setVisible(true);
+//			frame.remove(main);
+//            frame.add(bridgeGame);
+//			frame.setVisible(true);
 			
 		}
 		else if(event.equals("Muyu")){

@@ -8,7 +8,7 @@ import javax.swing.*;
 
 import common.User;
 
-public class Bridge extends JPanel {
+public class Bridge extends JFrame {
 	final int WIDTH = 1024;
 	final int HEIGHT = 850;
 	User user;
@@ -19,7 +19,7 @@ public class Bridge extends JPanel {
 //		super("Bridge");
 		
 		this.setLayout(new FlowLayout());
-//		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 		this.setSize(WIDTH, HEIGHT);
 		
