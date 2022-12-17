@@ -23,28 +23,31 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import common.DBconnection;
 import common.User;
 
-public class Muyu extends JPanel implements ActionListener {
+public class Muyu extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
+	JPanel muyuPanel = new JPanel();
 	User user;
 	int balance = 0;
 	JButton muyu_bt = new JButton();
 	JLabel muyu_label = new JLabel();
-	JLabel leaderboard = new JLabel();
+	public JLabel leaderboard = new JLabel();
+	Boolean deposited = false;
 	Clip clip = null; // sound clip
-	DBconnection db; // db connection
+	static DBconnection db; // db connection
 	
-	public Muyu(User user) {
-		db  = new DBconnection();
+	public Muyu(User user, DBconnection db) {
+		this.db = db;
 		this.user = user;
-		setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-		setLayout(new GridLayout(1,3));
+		muyuPanel.setBorder(BorderFactory.createEmptyBorder(30, 10, 30, 10));//top left bottom right
 		
+        
 		// muyu sound
 		String soundName = "./CardGame/src/Muyu/muyu.wav";    
 		AudioInputStream audioInputStream = null;
@@ -75,7 +78,8 @@ public class Muyu extends JPanel implements ActionListener {
 		  try {
 		    Image img = ImageIO.read(getClass().getResource("./muyu.png"));
 		    muyu_bt.setIcon(new ImageIcon(img));
-		    Dimension d = new Dimension(100,100);
+		    Dimension d = new Dimension(300,300);
+		    muyu_bt.setMinimumSize(new Dimension(300, 300));
 		    muyu_bt.setPreferredSize(d);
 		  } catch (Exception ex) {
 		    System.out.println(ex);
@@ -85,17 +89,22 @@ public class Muyu extends JPanel implements ActionListener {
 		muyu_bt.setContentAreaFilled(false);
 		muyu_bt.setBorderPainted(false);
 		muyu_bt.setFocusPainted(false);
-		muyu_label = new JLabel("Knock the Muyu to deposit your cash");
+		muyu_label = new JLabel("Knock to deposit");
 		muyu_label.setFont(new Font("Serif", Font.PLAIN, 18));
 		// add buttons / labels
-		add(muyu_label);
-		add(leaderboard);
-		add(muyu_bt);
+		muyuPanel.add(muyu_label);
+		muyuPanel.add(leaderboard);
+		muyuPanel.add(muyu_bt);
 		muyu_bt.addActionListener(this);
+		setLayout(new GridLayout(3,1));
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        getContentPane().add(muyuPanel);
+        setSize(1024, 850);
+        setVisible(true);
 	}
 	
 	//build leader board string from db
-	private String pullLeaderBoardString() {
+	public String pullLeaderBoardString() {
 		ArrayList<User> users = null;
 		StringBuilder sb = new StringBuilder();
 		try {
@@ -139,9 +148,10 @@ public class Muyu extends JPanel implements ActionListener {
 			showMessageDialog(null, "Deposit succeed. Greed is sin.");
 			if (db.conn != null) {
 				try {
-					DBconnection.insertUser(db.conn, user.username, balance);
+					if(!deposited)DBconnection.insertUser(db.conn, user.username, balance); // avoid repetitive insert
+					deposited = true;
 					leaderboard.setText(pullLeaderBoardString());
-					db.conn.close();
+//					db.conn.close();
 				}catch(SQLException e) {
 					e.printStackTrace();
 					System.out.println(e.getMessage());

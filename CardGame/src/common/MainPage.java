@@ -9,6 +9,10 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -25,7 +29,7 @@ public class MainPage implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	static final int WIDTH = 1024;
 	static final int HEIGHT = 850;
-
+	public static DBconnection db; // db connection
 //	JPanel blackjack = new JPanel();
 //	JPanel bridge = new JPanel();
 
@@ -34,7 +38,7 @@ public class MainPage implements ActionListener {
 	static JFrame frame = new JFrame();
 	static User user;
 	public MainPage() {
-
+		db  = new DBconnection();
 		frame.setSize(WIDTH, HEIGHT);
 		main.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 		main.setLayout(new GridLayout(1, 4));
@@ -72,7 +76,26 @@ public class MainPage implements ActionListener {
 //		new User();
 //		Bridge bridge = new Bridge();
 //		mainPage.add(bridge);
+		WindowListener exitListener = new WindowAdapter() {
 
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+		        int confirm = JOptionPane.showOptionDialog(
+		             null, "Are You Sure to Close Application?", 
+		             "Exit Confirmation", JOptionPane.YES_NO_OPTION, 
+		             JOptionPane.QUESTION_MESSAGE, null, null, null);
+		        if (confirm == 0) {
+		        	try {
+						db.conn.close();
+						System.out.println("DB connection closed.");
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+		           System.exit(0);
+		        }
+		    }
+		};
+		frame.addWindowListener(exitListener);
 		
 	}
 
@@ -99,10 +122,11 @@ public class MainPage implements ActionListener {
 		}
 		else if(event.equals("Muyu")){
 			System.out.println("playing Muyu");
-			Muyu muyuGame = new Muyu(user);
-			frame.remove(main);
-			frame.add(muyuGame);
-			frame.setVisible(true);
+			Muyu muyuGame = new Muyu(user, db);
+			
+//			frame.remove(main);
+//			frame.add(muyuGame);
+//			muyuGame.setVisible(true);
 		}
 		
 	}
