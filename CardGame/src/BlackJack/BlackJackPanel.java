@@ -52,7 +52,7 @@ public class BlackJackPanel extends JFrame {
 		this.setLayout(new FlowLayout());
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		for (int i = 0; i < 52; i++) {
-			this.pokers[i] = new ImagePanel("./CardGame/img/"+(i+1)+".png", i);
+			this.pokers[i] = new ImagePanel("./img/"+(i+1)+".png", i);
 		}
 		for (int i = 0; i < 10; i++) {
 			pokers[i+52] = new ImagePanel("./CardGame/img/"+0+".png", 0);

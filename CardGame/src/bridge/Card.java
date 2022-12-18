@@ -28,7 +28,7 @@ public class Card extends JPanel{
 		this.suitId = id / 13;
 		this.isRotated = isRotated;
 		this.playable = false;
-		String name = new String("./img/" + (id + 1) + ".png");
+		String name = new String("./CardGame/img/" + (id + 1) + ".png");
 		img = new ImageIcon(name).getImage();
 		imgheight = img.getHeight(null);
 		imgwidth = img.getWidth(null);
