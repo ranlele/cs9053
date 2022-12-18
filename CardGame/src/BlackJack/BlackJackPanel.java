@@ -50,7 +50,7 @@ public class BlackJackPanel extends JFrame {
 		BlackJackPanel.user = user;
 		gamblingMoney = user.cash;	
 		this.setLayout(new FlowLayout());
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 		for (int i = 0; i < 52; i++) {
 			this.pokers[i] = new ImagePanel("./CardGame/img/"+(i+1)+".png", i);
 		}
@@ -262,12 +262,16 @@ public class BlackJackPanel extends JFrame {
         this.add(gamblingMoneyLabel, gbc);
         
         
-        gbc = gbcSettings(1, 0, GridBagConstraints.CENTER, GridBagConstraints.REMAINDER);
+        gbc = gbcSettings(1, 0, GridBagConstraints.CENTER, GridBagConstraints.RELATIVE);
 //        gbc.gridx = 1;
 //        gbc.gridy = 0;
 //        gbc.anchor = GridBagConstraints.CENTER;
 //        gbc.fill = GridBagConstraints.REMAINDER;
         this.add(panel, gbc);
+        
+        JLabel l = new JLabel("<html><body><br><br>Dealer<br><br><br><br><br><br><br>Player<body/><html/>");
+        gbc = gbcSettings(1, 0, GridBagConstraints.CENTER, GridBagConstraints.RELATIVE);
+        this.add(l, gbc);
     }
 	
 	private void initialBlackJack() {
@@ -602,8 +606,8 @@ public class BlackJackPanel extends JFrame {
     }
 	
 	public static void main(String[] args) {
-		User user = new User("D");
-		BlackJackPanel blackJackPanel = new BlackJackPanel(user);
+//		User user = new User("D");
+//		BlackJackPanel blackJackPanel = new BlackJackPanel(user);
 	}
 }
 
