@@ -27,7 +27,7 @@ public class Bridge extends JFrame {
 		this.add(desk);
 		board = new Board();
 		this.add(board);
-		board.getStart().addActionListener(new StartAction(desk, board));
+		board.getStart().addActionListener(new StartAction(this, desk, board));
 	}
 	
 	public Bridge(User user) {
@@ -44,15 +44,25 @@ public class Bridge extends JFrame {
 		return this.desk;
 	}
 	
+	public void setDesk(Desk desk) {
+		this.desk = desk;
+	}
+	
 	public Board getBoard() {
 		return this.board;
 	}
 	
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+	
 	public class StartAction implements ActionListener{
+		Bridge bridge;
 		Desk desk;
 		Board board;
 		
-		public StartAction(Desk desk, Board board) {
+		public StartAction(Bridge bridge, Desk desk, Board board) {
+			this.bridge = bridge;
 			this.desk = desk;
 			this.board = board;
 		}
@@ -60,15 +70,18 @@ public class Bridge extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			// cannot start a game before finish the one is playing
 			if(this.desk.isPlaying == true) {
-				JOptionPane.showMessageDialog(desk, "Please finish this game before starting a new one.", 
+				JOptionPane.showMessageDialog(desk, "Please finish this game before return to main page.", 
 						null, JOptionPane.PLAIN_MESSAGE);
 				return;
 			}
 			
-//			board.getUser().cash -= 25;
-//			board.setScore();
+			if(this.board.getStart().getText() == "Return") {
+				this.bridge.dispose();
+				return;
+			}			
 			
 			this.desk.isPlaying = true;
+			this.board.initNumofWins();
 			// shuffle and deal cards
 			this.desk.shuffleCards();
 			this.desk.dealCards();
@@ -119,7 +132,7 @@ public class Bridge extends JFrame {
 			for (Card c : bankerField.getCardsList()) {
 				c.setPlayable(true);
 			}
-			bankerField.repaint();
+			bankerField.displayCards();
 			
 			partnerField.setDisplayable(true);
 			partnerField.setCardsList();
@@ -141,6 +154,8 @@ public class Bridge extends JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
+			board.getStart().setText("Return");
 		}
 		
 		

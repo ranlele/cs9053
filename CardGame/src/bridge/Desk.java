@@ -293,7 +293,7 @@ public class Desk extends JPanel{
 			while(isPlaying == true) {
 				if(!playerThreads[0].isAlive() && !playerThreads[1].isAlive() && !playerThreads[2].isAlive() && !playerThreads[3].isAlive()) {
 					isPlaying = false;
-					if (bridge.getBoard().getNumOfWins() > bridge.getBoard().nContract + 6) {
+					if (bridge.getBoard().getNumOfWins() >= bridge.getBoard().nContract + 6) {
 						bridge.board.getUser().cash += 5;
 						bridge.board.setScore();
 					}
@@ -372,11 +372,14 @@ public class Desk extends JPanel{
 					else
 						winner = i;
 				}	
-				else continue;
+				else winner++;
 			}
 			else {
 				if(cardIDsSlot[winner]/13 == getSuitId(trumpSuit) && suit != trumpSuit) {
 					continue;
+				}
+				else if (cardIDsSlot[winner]/13 != getSuitId(suit)) {
+					winner = 1;
 				}
 				else {
 					winner = (cardIDsSlot[i]%13 > cardIDsSlot[winner]%13) ? i : winner;
@@ -443,7 +446,7 @@ public class Desk extends JPanel{
 			int id = IDs.remove(0);
 			cardField.setIDsList(IDs);
 //			cardField.getCardsList().remove(0);
-			cardField.repaint();
+			cardField.displayCards();
 			return id;
 		}
 		
@@ -469,7 +472,7 @@ public class Desk extends JPanel{
 				IDs.remove(IDs.indexOf(CardID));
 				cardField.setIDsList(IDs);
 //				cardField.getCardsList().remove(0);
-				cardField.repaint();
+				cardField.displayCards();
 			}else {
 				CardID = playCardsWithNoTrump();
 			}
@@ -540,7 +543,7 @@ public class Desk extends JPanel{
 								IDs.remove(IDs.indexOf(cardID));
 								cardField.setIDsList(IDs);
 //								cardField.getCardsList().remove(0);
-								cardField.repaint();
+								cardField.displayCards();
 							}
 							else {
 								cardID = playCardsWithTrumpOf(trumpSuit);

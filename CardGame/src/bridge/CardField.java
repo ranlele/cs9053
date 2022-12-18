@@ -13,7 +13,7 @@ public abstract class CardField extends JPanel {
 	Desk desk;
 	String position;
 	CopyOnWriteArrayList<Integer> cardsIDs;
-	List<Card> cards;
+	CopyOnWriteArrayList<Card> cards;
 	boolean displayable;
 	protected boolean isPlayed;
 
@@ -25,7 +25,7 @@ public abstract class CardField extends JPanel {
 		this.setVisible(true);
 		
 		cardsIDs = new CopyOnWriteArrayList<Integer>();
-		cards = new ArrayList<Card>();
+		cards = new CopyOnWriteArrayList<Card>();
 		displayable = false;
 		isPlayed = false;
 	}

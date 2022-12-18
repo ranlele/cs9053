@@ -95,6 +95,7 @@ public class Board extends JPanel {
 	public void setContract(String str) {
 		this.contract.setText("Contract: " + str);
 		this.nContract = Integer.parseInt(str.split(" ")[0]);
+		System.out.println("contract order: " + nContract);
 	}
 	
 	public void plusOneWins() {
@@ -104,5 +105,9 @@ public class Board extends JPanel {
 	
 	public int getNumOfWins() {
 		return this.nWins;
+	}
+	
+	public void initNumofWins() {
+		this.nWins = 0;
 	}
 }
