@@ -294,11 +294,11 @@ public class Desk extends JPanel{
 				if(!playerThreads[0].isAlive() && !playerThreads[1].isAlive() && !playerThreads[2].isAlive() && !playerThreads[3].isAlive()) {
 					isPlaying = false;
 					if (bridge.getBoard().getNumOfWins() > bridge.getBoard().nContract + 6) {
-						bridge.board.getUser().cash += 50;
+						bridge.board.getUser().cash += 5;
 						bridge.board.setScore();
 					}
 					else {
-						bridge.board.getUser().cash += 50;
+						bridge.board.getUser().cash -= 5;
 						bridge.board.setScore();
 					}
 //					JOptionPane.showMessageDialog(null, "Do you want to start a new game or return?", 

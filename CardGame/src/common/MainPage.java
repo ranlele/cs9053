@@ -115,7 +115,7 @@ public class MainPage implements ActionListener {
 		}
 		else if(event.equals("Bridge")){
 			System.out.println("playing Bridge");
-			Bridge bridgeGame = new Bridge();
+			Bridge bridgeGame = new Bridge(user);
 //			frame.remove(main);
 //            frame.add(bridgeGame);
 //			frame.setVisible(true);
