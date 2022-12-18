@@ -10,7 +10,7 @@ Purpose of Project: We want to exercise our understanding of a few of java conce
 
 1. User Interface Design
 
-2. Network communication between a client and a server, a multi-threaded server to receive and handle multiple connections.
+2. A BlackJack game with computer opponent. A multi-threaded Bridge game. Every player is a single thread.
 
 3. A DB where results could be stored and retrieved.
 
@@ -24,7 +24,7 @@ Purpose of Project: We want to exercise our understanding of a few of java conce
 
 3.  A Merit Growth Machine. In Buddhism, people gain merit by knocking the wooden fish ([Muyu](https://www.youtube.com/watch?v=b6gKkhX63-o)). In order to keep people from being addicted to gambling, they need to knock the wooden fish to gain merit and keep points. Otherwise, the points will not be stored in the database.
 
-## **Deliverable**
+## **How to play**
 
-We will try to implement the Black Jack game with user login and leaderboard first. After this, we will implement other bridge games and Muyu, then integrate them into a collection. Finally, we will implement a UI that connects everything.
+Please download the zip file and make sure the SQLite jar file is included. Then go to the cardGame/src/common. running mainPage.java to start the game. After entering your name, you can play blackjack and bridge game. Finally you can save your balance by knocking the Muyu. You will find your rank on the leaderboard on Muyu Page.
 
